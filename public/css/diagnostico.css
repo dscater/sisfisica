@@ -1,0 +1,25 @@
+.opciones {
+    padding-left: 15px;
+}
+
+.opciones li {
+    padding: 0px;
+}
+
+.opciones li label {
+    margin: 0px;
+    font-weight: normal!important;
+    font-size: 1.3em;
+}
+
+.opciones li label input {
+    margin-right: 5px;
+}
+
+li.seleccionado label {
+    color: rgb(5, 110, 230);
+}
+
+.imagen {
+    height: 80px;
+}

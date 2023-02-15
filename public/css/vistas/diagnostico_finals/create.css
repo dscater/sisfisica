@@ -1,0 +1,8 @@
+.eliminar {
+    color: red;
+    cursor: pointer;
+}
+
+input[type=radio] {
+    cursor: pointer;
+}

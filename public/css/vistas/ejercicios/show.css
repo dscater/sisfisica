@@ -1,0 +1,205 @@
+#contenedor_imgs {
+    overflow: auto;
+    height: auto;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
+    -ms-grid-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 8px;
+    align-items: center;
+    font-size: 0.85em;
+    border: solid 2px gray;
+    padding: 10px;
+    min-height: 200px;
+}
+
+#contenedor_imgs .imagen {
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: move;
+    z-index: 500;
+    border: solid 2px rgb(151, 151, 151);
+}
+
+#contenedor_imgs .imagen .img {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid gray;
+}
+
+#contenedor_imgs .imagen .img img {
+    max-width: 100%;
+    /* height: 80px!important; */
+}
+
+#contenedor_imgs .imagen .info {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.808);
+    color: white;
+    padding: 5px;
+}
+
+#contenedor_imgs .imagen .acciones {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    margin: 0px;
+    width: 40px;
+    height: 100%;
+}
+
+#contenedor_imgs .imagen .acciones button {
+    height: 100%;
+}
+
+
+/* CONTENEDOR PASOS*/
+
+#contenedor_pasos {
+    list-style: none;
+    overflow: auto;
+    height: auto;
+    display: grid;
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 8px;
+    align-items: center;
+    font-size: 0.85em;
+    border: solid 2px gray;
+    padding: 10px;
+}
+
+#contenedor_pasos .paso_imagen {
+    z-index: 20;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: move;
+    border: solid 2px rgb(151, 151, 151);
+    width: 100%;
+}
+
+#contenedor_pasos .paso_imagen .img {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid gray;
+    width: calc(100% - 40px);
+}
+
+#contenedor_pasos .paso_imagen .img img {
+    width: calc(100% - 40px);
+}
+
+#contenedor_pasos .paso_imagen .info {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.808);
+    color: white;
+    padding: 5px;
+}
+
+#contenedor_pasos .paso_imagen .acciones {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    margin: 0px;
+    width: 40px;
+    height: 100%;
+}
+
+#contenedor_pasos .paso_imagen .acciones button {
+    height: 100%;
+}
+
+
+/* FIN CONTENEDOR PASOS */
+
+.archivos {
+    position: relative;
+}
+
+.archivos input[type="file"] {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    position: absolute;
+    opacity: 0;
+}
+
+.subir {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background: #3594e2;
+    color: #fff;
+    border: 0px solid #fff;
+    z-index: 100;
+}
+
+.subir span {
+    margin-left: 5px;
+    z-index: 100;
+}
+
+.subir:hover span {
+    cursor: pointer;
+}
+
+.subir:hover {
+    cursor: pointer;
+    color: #fff;
+    background: #3682f4;
+}
+
+.image-area {
+    text-align: center;
+    max-width: 100%!important;
+    width: 100%!important;
+}
+
+#imagen_p {
+    max-width: 80%;
+    margin: auto;
+    height: 150px;
+}
+
+#contenedor_pasos {
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    border: solid 2px gray;
+    padding: 15px;
+}
+
+#contenedor_pasos .imagen {
+    width: 100%;
+}
+
+#contenedor_pasos .imagen img {
+    width: 100%;
+}
+
+
+/*DRAG AND DROP*/
+
+.hovering {
+    background: blue;
+    border: solid 2px blue;
+}
