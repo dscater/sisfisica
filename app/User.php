@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Carrera::class, 'paralelo_id');
     }
+
+    public function partida()
+    {
+        return $this->hasOne(Partida::class, 'user_id');
+    }
 }

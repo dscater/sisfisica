@@ -1,3 +1,5 @@
+let carga_partida = 1;
+let sw_conteo = true;
 let t_mins = 5;
 let t_segs = 1;
 
@@ -12,16 +14,20 @@ let puntaje = 0;
 let contador = 0;
 let correctos_nivel = 0;
 let contador_tiempo = null;
-$(document).ready(function() {
+let jugados = [0];
+
+// MENSAJES
+let urlImgsPartida = $("#urlImgsPartida").val();
+let mensaje_nivel = $(".mensaje_nivel")
+$(document).ready(function () {
     var audio = new Audio($('#public_path').val() + 'fondo.mp3');
     audio.volume = 0.5;
     audio.play();
 
-    contador_tiempo = setInterval(iniciaConteo, 1000);
     nuevo();
 
     // FUNCION PARA VOLVER LAS IMAGENES AL CONTENEDOR INICIAL
-    $(document).on('click', '.remover', function() {
+    $(document).on('click', '.remover', function () {
         let paso_removido = $(this).parents('.paso_imagen');
         paso_removido.remove();
         let nueva_imagen = paso_removido.clone();
@@ -43,26 +49,26 @@ $(document).ready(function() {
     });
 
     // REVISAR LOS PASOS
-    $(document).on('click', '#btnRevisar', function() {
+    $(document).on('click', '#btnRevisar', function () {
         $(this).prop('disabled', true);
         revisaEjercicio();
     });
 
     // SALTAR EJERCICIO
-    $(document).on('click', '#btnSaltar', function() {
+    $(document).on('click', '#btnSaltar', function () {
         $('#m_confirma_salto').modal('show');
     });
-    $(document).on('click', '#btnConfirmaSalto', function() {
+    $(document).on('click', '#btnConfirmaSalto', function () {
         saltarEjercicio();
         $('#m_confirma_salto').modal('hide');
     });
 
     // TERMINAR EJERCICIO
-    $('#btnTerminarPartida').click(function(e) {
+    $('#btnTerminarPartida').click(function (e) {
         e.preventDefault();
         $('#m_confirma_terminar_partida').modal('show');
     });
-    $('#btnConfirmaTerminar').click(function(e) {
+    $('#btnConfirmaTerminar').click(function (e) {
         e.preventDefault();
         enviaPuntaje();
         $('#m_confirma_terminar_partida').modal('hide');
@@ -90,7 +96,7 @@ function iniciaDrop() {
         classes: {
             "ui-droppable-active": "ui-state-highlight"
         },
-        drop: function(event, ui) {
+        drop: function (event, ui) {
             ui.draggable.detach();
             let nuevo_paso = $(ui.draggable).clone();
             nuevo_paso.addClass('paso_imagen');
@@ -107,13 +113,12 @@ function iniciaDrop() {
             ennumeraPasos();
             inciaDragPaso();
         },
-        activate: function() {},
-        deactivate: function() {}
+        activate: function () { },
+        deactivate: function () { }
     });
 
     $("ul, li").disableSelection(); //para que funcione el sortable draggable
 }
-
 
 // INICIAR MOVIMIENTO DE LOS ELEMENTOS PASOS
 function inciaDragPaso() {
@@ -121,13 +126,13 @@ function inciaDragPaso() {
         revert: true,
         delay: 10,
         dropOnEmpty: false,
-        update: function() {
+        update: function () {
             ennumeraPasos();
         },
-        change: function(event, ui) {
+        change: function (event, ui) {
             $(this).css('background', '#def5e5');
             let el = $(this);
-            setTimeout(function() {
+            setTimeout(function () {
                 el.css('background', 'white');
             }, 1000);
         }
@@ -140,7 +145,7 @@ function ennumeraPasos() {
     let contador_pasos = 0;
     if (pasos.length > 0) {
         $('#btnRevisar').prop('disabled', false);
-        pasos.each(function() {
+        pasos.each(function () {
             contador_pasos++;
             $(this).children('.acciones').children('input.nro_paso').val(contador_pasos);
         });
@@ -151,20 +156,44 @@ function ennumeraPasos() {
 
 // FUNCION PARA OBTENER UN NUEVO EJERCICIO
 function nuevo() {
+    $('#contenedor_principal').html("Cargando...");
     $.ajax({
-        type: "GET",
+        type: "POST",
+        headers: { 'x-csrf-token': $('#token').val() },
         url: $('#urlGetNivel').val(),
         data: {
+            carga_partida: carga_partida,
             nivel: nivel_actual,
-            actual: actual
+            actual: actual,
+            jugados: jugados
         },
         dataType: "json",
-        success: function(response) {
-            actual = response.actual;
+        success: function (response) {
+            if (response.sw_carga_partida) {
+                t_mins = response.t_mins;
+                t_segs = response.t_segs;
+                nivel_actual = response.nivel_actual;
+                nro_ejercicio = response.nro_ejercicio;
+                actual = response.actual;
+                puntaje = response.puntaje;
+                contador = response.contador;
+                correctos_nivel = response.correctos_nivel;
+                jugados = response.jugados;
+                muestraValores();
+            } else {
+                actual = response.actual;
+                jugados.push(actual);
+                ennumeraPasos();
+            }
+            carga_partida = 0;
+            if (sw_conteo) {
+                contador_tiempo = setInterval(iniciaConteo, 1000);
+                sw_conteo = false;
+            }
+
             $('#contenedor_principal').html(response.html);
             iniciaDrag();
             iniciaDrop();
-            ennumeraPasos();
             ajustarAncho();
         }
     });
@@ -172,8 +201,8 @@ function nuevo() {
 
 // FUNCION PARA REINICIAR CONTEO
 function reiniciaConteo() {
-    t_mins = 1;
-    t_segs = 59;
+    t_mins = 2;
+    t_segs = 0;
 }
 
 // FUNCION PARA INICIAR CONTEO
@@ -189,9 +218,10 @@ function iniciaConteo() {
                 nro_ejercicio = 2;
                 avanza();
             } else {
-                sw = false;
-                clearInterval(contador_tiempo);
-                enviaPuntaje();
+                // sw = false;
+                // clearInterval(contador_tiempo);
+                // enviaPuntaje();
+                nuevo();
             }
         }
     }
@@ -202,6 +232,7 @@ function iniciaConteo() {
             txt_tiempo.text(`${t_mins}:${t_segs}`);
         }
     }
+    guardaPartida();
 }
 
 // FUNCION PARA REVISAR EJERCICIO
@@ -211,18 +242,18 @@ function revisaEjercicio() {
         url: $('#formPasos').attr('action'),
         dataType: "json",
         data: $('#formPasos').serialize(),
-        success: function(response) {
+        success: function (response) {
             $('.mensaje_info').removeClass('oculto');
             if (response.sw) {
                 $('.mensaje_info').removeClass('alert-danger');
                 $('.mensaje_info').addClass('alert-success');
                 $('.mensaje_info').text('Muy bien resolviste el ejercicio correctamente.');
-                setTimeout(function() {
+                setTimeout(function () {
                     correctos_nivel++;
                     avanza();
                     $('#btnRevisar').prop('disabled', false);
                     puntaje = puntaje + 10;
-                    txt_puntaje.text(puntaje);
+                    muestraValores();
                 }, 1000);
             } else {
                 $('#btnRevisar').prop('disabled', false);
@@ -239,12 +270,13 @@ function enviaPuntaje() {
     $.ajax({
         headers: { 'x-csrf-token': $('#token').val() },
         type: "POST",
-        url: $('#urlGuardaPartida').val(),
+        url: $('#urlRegistraPartida').val(),
         data: {
             puntaje: puntaje
         },
         dataType: "json",
-        success: function(response) {
+        success: function (response) {
+            clearInterval(contador_tiempo);
             mensajeNotificacion('La partida se registro correctamente', 'success');
             $('#contenedorPrincipalPartida').addClass('oculto');
             $('#reiniciarPartida').removeClass('oculto');
@@ -263,13 +295,16 @@ function avanza() {
             nro_ejercicio++;
             nuevo();
         } else {
-            reiniciaConteo();
-            nro_ejercicio = 1;
-            nivel_actual++;
+            // mostrar mensajes deacuerdo al nivel
+            $(".mensaje_nivel.letrero" + nivel_actual).removeClass("oculto")
             var audio = new Audio($('#public_path').val() + 'lvl.m4a');
             audio.play();
-            nuevo();
+
+            if (nivel_actual == 3) {
+                enviaPuntaje();
+            }
         }
+
         if (nivel_actual == 4) {
             enviaPuntaje();
         }
@@ -277,16 +312,57 @@ function avanza() {
         enviaPuntaje();
     }
     if (nivel_actual <= 3) {
-        txt_nivel.text(nivel_actual + `- ${nro_ejercicio}`);
+        muestraValores();
     }
+}
+
+function incrementaNivel(e) {
+    e.preventDefault();
+    correctos_nivel = 0;
+    reiniciaConteo();
+    nro_ejercicio = 1;
+    nivel_actual++;
+    nuevo();
+    muestraValores();
+    $(".mensaje_nivel").addClass("oculto");
+}
+
+function muestraValores() {
+    txt_nivel.text(nivel_actual + `- ${nro_ejercicio}`);
+    txt_puntaje.text(puntaje);
 }
 
 function ajustarAncho() {
     let imagenes = $('#contenedor_imgs').children('li.imagen');
     if (imagenes.length > 0) {
-        imagenes.each(function() {
+        imagenes.each(function () {
             $(this).css('width', $(this).width());
             // $(this).css('height', '100%');
         });
     }
+}
+
+// Funcion para guardar la partida por cada acción realizada
+function guardaPartida() {
+    $.ajax({
+        type: "POST",
+        headers: { 'x-csrf-token': $('#token').val() },
+        url: $('#urlGuardaPartida').val(),
+        data: {
+            t_mins: t_mins,
+            t_segs: t_segs,
+            nivel_actual: nivel_actual,
+            nro_ejercicio: nro_ejercicio,
+            actual: actual,
+            puntaje: puntaje,
+            contador: contador,
+            correctos_nivel: correctos_nivel,
+            jugados: jugados,
+            pasos: $("#contenedor_imgs").html(),
+            pasos_arrastrados: $("#contenedor_pasos").html(),
+        },
+        dataType: "json",
+        success: function (response) {
+        }
+    });
 }

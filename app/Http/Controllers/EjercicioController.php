@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use app\Ejercicio;
 use app\EjercicioImagen;
+use app\Partida;
 use app\PuntuacionExtra;
 use Illuminate\Support\Facades\Auth;
 
@@ -95,7 +96,7 @@ class EjercicioController extends Controller
             $file_imagen_ejercicio2->move(public_path() . "/imgs/ejercicios/", $nom_imagen_ejercicio2);
             $ejercicio->imagen_ejercicio2 = $nom_imagen_ejercicio2;
         }
-        
+
         $ejercicio->nivel = $request->nivel;
         $ejercicio->save();
 
@@ -174,19 +175,59 @@ class EjercicioController extends Controller
 
     public function getNivelPartida(Request $request)
     {
-        do {
-            $ejercicio = Ejercicio::where('nivel', $request->nivel)->inRandomOrder()->first();
-        } while ($ejercicio->id == $request->actual);
+        $carga_partida = $request->carga_partida;
+        $partida_guardada = Partida::where("user_id", Auth::user()->id)
+            ->where("estado", "GUARDADO")
+            ->get()
+            ->last();
 
-        $pasos = EjercicioImagen::where('ejercicio_id', $ejercicio->id)->inRandomOrder()->get();
-        // $pasos = EjercicioImagen::where('ejercicio_id', $ejercicio->id)->get();
+        if ($partida_guardada && $partida_guardada->actual > 0 && $carga_partida == 1) {
 
-        $html = view('ejercicios.ejercicio_render', compact('ejercicio', 'pasos'))->render();
-        return response()->JSON([
-            'sw' => true,
-            'html' => $html,
-            'actual' => $ejercicio->id
-        ]);
+            $ejercicio = Ejercicio::find($partida_guardada->actual);
+
+            $html = view('ejercicios.ejercicio_cargado_render', compact('ejercicio', 'partida_guardada'))->render();
+
+            return response()->JSON([
+                'sw' => true,
+                "sw_carga_partida" => true,
+                'html' => $html,
+                "t_mins" => $partida_guardada->t_mins,
+                "t_segs" => $partida_guardada->t_segs,
+                "nivel_actual" => $partida_guardada->nivel_actual,
+                "nro_ejercicio" => $partida_guardada->nro_ejercicio,
+                "actual" => $partida_guardada->actual,
+                "puntaje" => $partida_guardada->puntaje,
+                "contador" => $partida_guardada->contador,
+                "correctos_nivel" => $partida_guardada->correctos_nivel,
+                "jugados" => explode(",", $partida_guardada->jugados),
+            ]);
+        } else {
+            $jugados = $request->jugados;
+            do {
+                $total_ejercicios_nivel = count(Ejercicio::where('nivel', $request->nivel)->get());
+
+                $ejercicio = Ejercicio::where('nivel', $request->nivel)
+                    ->whereNotIn("id", $jugados)
+                    ->inRandomOrder()
+                    ->first();
+                if (!$ejercicio) {
+                    $ejercicio = Ejercicio::where('nivel', $request->nivel)
+                        ->inRandomOrder()
+                        ->first();
+                }
+            } while ($ejercicio->id == $request->actual && $total_ejercicios_nivel > 1);
+
+            $pasos = EjercicioImagen::where('ejercicio_id', $ejercicio->id)->inRandomOrder()->get();
+            // $pasos = EjercicioImagen::where('ejercicio_id', $ejercicio->id)->get();
+
+            $html = view('ejercicios.ejercicio_render', compact('ejercicio', 'pasos'))->render();
+            return response()->JSON([
+                'sw' => true,
+                "sw_carga_partida" => false,
+                'html' => $html,
+                'actual' => $ejercicio->id,
+            ]);
+        }
     }
 
     public function registaPartida(Request $request)
@@ -202,6 +243,11 @@ class EjercicioController extends Controller
                 'puntaje' => $request->puntaje
             ]);
         }
+
+        $partida = Partida::where("user_id", $user->id)->get()->first();
+        $partida->estado = "TERMINADO";
+        $partida->save();
+        
         return response()->JSON([
             'sw' => true,
         ]);

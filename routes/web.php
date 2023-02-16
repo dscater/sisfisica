@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('inicio');
 
-Route::get('/clear-cache', function (){ 
+Route::get('/clear-cache', function () {
     Artisan::call('config:cache');
     return "Cache is cleared";
 });
@@ -103,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('ejercicios/partida', 'EjercicioController@partida')->name('ejercicios.partida');
 
-    Route::get('ejercicios/getNivelPartida', 'EjercicioController@getNivelPartida')->name('ejercicios.getNivelPartida');
+    Route::post('ejercicios/getNivelPartida', 'EjercicioController@getNivelPartida')->name('ejercicios.getNivelPartida');
 
     Route::post('ejercicios/registaPartida', 'EjercicioController@registaPartida')->name('ejercicios.registaPartida');
 
@@ -113,6 +113,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ejercicios/elimina_imagen_paso', 'EjercicioImagenController@elimina_imagen_paso')->name('ejercicios.elimina_imagen_paso');
 
     Route::delete('ejercicio_imagens/destroy/{ejercicio_imagen}', 'EjercicioImagenController@destroy')->name('ejercicio_imagens.destroy');
+
+
+    // PARTIDAS
+    Route::get('partidas', 'PartidaController@index')->name('partidas.index');
+    Route::post('partidas/store', 'PartidaController@store')->name('partidas.store');
 
     // FORMULAS
     Route::get('formulas', 'FormulaController@index')->name('formulas.index');
