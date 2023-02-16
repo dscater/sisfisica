@@ -15,7 +15,13 @@ class EjercicioController extends Controller
     public function index()
     {
         $ejercicios = Ejercicio::all();
-        return view('ejercicios.index', compact('ejercicios'));
+
+        $partida_guardada = Partida::where("user_id", Auth::user()->id)
+            ->where("estado", "GUARDADO")
+            ->get()
+            ->last();
+
+        return view('ejercicios.index', compact('ejercicios', 'partida_guardada'));
     }
 
     public function create()
@@ -168,9 +174,22 @@ class EjercicioController extends Controller
         return response()->JSON(['sw' => false]);
     }
 
-    public function partida()
+    public function partida(Request $request)
     {
-        return view('ejercicios.partida');
+        $nivel = 1;
+        $partida_guardada = null;
+        if (isset($request->nivel)) {
+            $nivel = $request->nivel;
+            $partida_guardada = Partida::where("user_id", Auth::user()->id)
+                ->where("estado", "GUARDADO")
+                ->get()
+                ->last();
+            if ($partida_guardada) {
+                $partida_guardada->estado = "TERMINADO";
+                $partida_guardada->save();
+            }
+        }
+        return view('ejercicios.partida', compact("nivel", "partida_guardada"));
     }
 
     public function getNivelPartida(Request $request)
@@ -247,7 +266,7 @@ class EjercicioController extends Controller
         $partida = Partida::where("user_id", $user->id)->get()->first();
         $partida->estado = "TERMINADO";
         $partida->save();
-        
+
         return response()->JSON([
             'sw' => true,
         ]);

@@ -6,6 +6,19 @@
         #contenedorPrincipalPartida {
             background-image: url('{{ asset('imgs/iconoc/fondos/fondo1.png') }}')
         }
+
+        .niveles .nivel {
+            background-image: url("{{ asset('imgs/partida/inicio/Imagen30.png') }}");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-x: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 15px;
+            width: 800px;
+        }
     </style>
 @endsection
 
@@ -37,8 +50,8 @@
                             <div class="row">
                                 <div class="col-md-12 tex-center d-flex justify-content-center">
                                     <a href="#" data-toggle="modal" data-target="#m_ayuda" class="btnAyuda"
-                                    style="">
-                                <img src="{{asset('imgs/partida/ayuda.png')}}" alt=""></a>
+                                        style="">
+                                        <img src="{{ asset('imgs/partida/ayuda.png') }}" alt=""></a>
                                 </div>
                             </div>
                             <div class="row" id="cont_puntajes">
@@ -58,10 +71,59 @@
                             <button type="button" id="btnTerminarPartida" class="btn btn-primary"><i
                                     class="fa fa-flag-alt"></i> Terminar Partida</a>
                         </div>
-                        <div class="row oculto" id="reiniciarPartida">
-                            <div class="col-md-12 puerta2">
-                                <a href="{{ route('ejercicios.partida') }}"><img src="{{ asset('imgs/2.png') }}"
-                                        alt=""></a>
+                        <div class="card-body oculto"
+                            style="background: url('imgs/partida/inicio/fondo.png'); background-size: cover;"
+                            id="reiniciarPartida">
+                            <div class="row niveles">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <img src="{{ asset('imgs/partida/inicio/contenido.png') }}" height="100px"
+                                                alt="Contenido">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 d-flex justify-content-center">
+                                            <div class="nivel">
+                                                <img src="{{ asset('imgs/partida/inicio/vectores.png') }}" alt=""
+                                                    class="img1" height="200px">
+
+                                                <a href="{{ route('ejercicios.partida') }}?nivel=1" class="boton">
+                                                    <img src="{{ asset('imgs/partida/inicio/nivel1.png') }}" alt=""
+                                                        height="80px">
+                                                </a>
+                                                <img src="{{ asset('imgs/partida/inicio/cinematica.png') }}" alt=""
+                                                    class="img2" height="200px">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 d-flex justify-content-center">
+                                            <div class="nivel">
+                                                <img src="{{ asset('imgs/partida/inicio/dinamica.png') }}" alt=""
+                                                    class="img1" height="200px">
+
+                                                <a href="{{ route('ejercicios.partida') }}?nivel=2" class="boton">
+                                                    <img src="{{ asset('imgs/partida/inicio/nivel2.png') }}" alt=""
+                                                        height="80px">
+                                                </a>
+                                                <img src="{{ asset('imgs/partida/inicio/trabajoenergia.png') }}"
+                                                    alt="" class="img2" height="200px">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 d-flex justify-content-center">
+                                            <div class="nivel">
+                                                <img src="{{ asset('imgs/partida/inicio/mecanica.png') }}" alt=""
+                                                    class="img1" height="200px">
+
+                                                <a href="{{ route('ejercicios.partida') }}?nivel=3" class="boton">
+                                                    <img src="{{ asset('imgs/partida/inicio/nivel3.png') }}" alt=""
+                                                        height="80px">
+                                                </a>
+                                                <img src="{{ asset('imgs/partida/inicio/gravitacion.png') }}"
+                                                    alt="" class="img2" height="200px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -74,7 +136,9 @@
         </div>
     </section>
 
-    <input type="hidden" id="urlImgsPartida" value="{{ asset("imgs/partida") }}">
+    <input type="hidden" id="urlInicio" value="{{ route('ejercicios.index') }}">
+    <input type="hidden" id="valor_nivel" value="{{ $nivel }}">
+    <input type="hidden" id="urlImgsPartida" value="{{ asset('imgs/partida') }}">
     <input type="hidden" id="urlGetNivel" value="{{ route('ejercicios.getNivelPartida') }}">
     <input type="hidden" id="urlRegistraPartida" value="{{ route('ejercicios.registaPartida') }}">
     <input type="hidden" id="urlGuardaPartida" value="{{ route('partidas.store') }}">
@@ -128,7 +192,7 @@
         <div class="modal-dialog">
             <div class="modal-content bg-primary">
                 <div class="modal-body">
-                    <img src="{{asset('imgs/partida/ayuda.png')}}" height="90px" alt=""></a>
+                    <img src="{{ asset('imgs/partida/ayuda.png') }}" height="90px" alt=""></a>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

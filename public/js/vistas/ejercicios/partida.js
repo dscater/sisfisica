@@ -1,3 +1,5 @@
+let sw_envio_automatico = false;
+
 let carga_partida = 1;
 let sw_conteo = true;
 let t_mins = 5;
@@ -16,13 +18,40 @@ let correctos_nivel = 0;
 let contador_tiempo = null;
 let jugados = [0];
 
+// AJUSTAR NIVELES POR BOTONES DE INICIO
+let valor_nivel = $("#valor_nivel");
+if (valor_nivel.val() != "" && valor_nivel) {
+    nivel_actual = parseInt(valor_nivel.val());
+    if (nivel_actual > 1) {
+        reiniciaConteo();
+    }
+    muestraValores();
+}
+
 // MENSAJES
 let urlImgsPartida = $("#urlImgsPartida").val();
 let mensaje_nivel = $(".mensaje_nivel")
 $(document).ready(function () {
     var audio = new Audio($('#public_path').val() + 'fondo.mp3');
     audio.volume = 0.5;
+    audio.loop = true;
     audio.play();
+    document.body.addEventListener('mouseover', () => {
+        audio.volume = 0.5;
+        audio.play();
+    });
+
+
+    document.body.addEventListener('keypress', () => {
+        audio.volume = 0.5;
+        audio.play();
+    });
+
+    document.body.addEventListener('click', () => {
+        audio.volume = 0.5;
+        audio.play();
+    });
+
 
     nuevo();
 
@@ -70,6 +99,7 @@ $(document).ready(function () {
     });
     $('#btnConfirmaTerminar').click(function (e) {
         e.preventDefault();
+        sw_envio_automatico = true;
         enviaPuntaje();
         $('#m_confirma_terminar_partida').modal('hide');
     });
@@ -278,8 +308,13 @@ function enviaPuntaje() {
         success: function (response) {
             clearInterval(contador_tiempo);
             mensajeNotificacion('La partida se registro correctamente', 'success');
-            $('#contenedorPrincipalPartida').addClass('oculto');
-            $('#reiniciarPartida').removeClass('oculto');
+            if (sw_envio_automatico) {
+                setTimeout(function () {
+                    window.location = $("#urlInicio").val()
+                }, 1000);
+            }
+            // $('#contenedorPrincipalPartida').addClass('oculto');
+            // $('#reiniciarPartida').removeClass('oculto');
         }
     });
 }

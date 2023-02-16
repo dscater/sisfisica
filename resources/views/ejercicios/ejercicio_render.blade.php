@@ -22,14 +22,14 @@
         @endif
     </ul>
 </div>
-<div class="col-md-5">
+<div class="col-md-5 contenedor_pasos_principal">
     <h4>ARRASTRA AQUÍ LOS PASOS</h4>
     <form id="formPasos" action="{{ route('ejercicios.revisar_ejercicio', $ejercicio->id) }}">
         <ul id="contenedor_pasos" class="ui-widget-content ui-state-default">
         </ul>
     </form>
-    <div class="alert mensaje_info oculto"></div>
-    <button type="button" class="btn btn-info" id="btnRevisar"><i class="fa fa-check"></i>
+    <div class="alert mensaje_info oculto mt-1 mb-1"></div>
+    <button type="button" class="btn btn-info mb-3 btn-block btn-flat" id="btnRevisar"><i class="fa fa-check"></i>
         REVISAR</button>
 
         {{-- <button type="button" class="btn btn-default" id="btnSaltar"><i class="fa fa-arrow-right"></i>

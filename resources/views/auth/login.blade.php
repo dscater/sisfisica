@@ -6,13 +6,7 @@
 @endsection
 
 @section('content')
-
- <audio src="{{asset('imgs/login.mp3')}}" autoplay="autoplay"></audio>
-
-
  <div id="particles-js" style=" background: url('imgs/4f.jpg'); background-size: cover; " ></div>
-
-
 <div class="login-box">
    
     <div class="login-logo">

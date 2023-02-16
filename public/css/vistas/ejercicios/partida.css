@@ -1,3 +1,14 @@
+
+#formPasos{
+    height: 100%;
+    min-height: 100%!important;
+}
+
+#contenedor_pasos{
+    display: flex;
+    height: 100%!important;
+}
+
 #cont_puntajes {
     margin-bottom: 5px;
     background: #425b75;
@@ -77,7 +88,7 @@
 #contenedor_pasos {
     list-style: none;
     overflow: auto;
-    height: auto;
+    /* height: auto; */
     display: grid;
     -ms-grid-columns: 1fr;
     -ms-grid-rows: 1fr;
@@ -194,7 +205,6 @@
 #contenedor_pasos {
     width: 100%;
     min-height: 200px;
-    height: auto;
     border: solid 2px gray;
     padding: 15px;
 }
@@ -248,7 +258,7 @@
 
 
 /* LETREROS */
-.btnAyuda{
+.btnAyuda {
     width: 140px;
     position: relative;
     height: 90px;
@@ -256,7 +266,7 @@
     text-align: right;
 }
 
-.btnAyuda img{
+.btnAyuda img {
     max-height: 100%;
 }
 
@@ -266,8 +276,8 @@
     background-image: url("../../../imgs/partida/fondo.png");
     background-repeat: no-repeat;
     background-size: contain;
-    z-index: 200;
-    position: absolute;
+    z-index: 1000;
+    position: fixed;
     top: 100px;
     left: calc(50% - 300px);
 }
@@ -285,21 +295,24 @@
     position: absolute;
 }
 
-.letrero .mascota{
+.letrero .mascota {
     bottom: 140px;
     left: 10px;
     z-index: 3;
 }
-.letrero .mensaje{
+
+.letrero .mensaje {
     top: 20px;
     left: 50px;
     z-index: 2;
 }
-.letrero .apuntes{
+
+.letrero .apuntes {
     right: 40px;
     bottom: 240px;
     z-index: 2;
 }
+
 .letrero .boton {
     right: 40px;
     bottom: 130px;
