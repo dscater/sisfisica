@@ -17,8 +17,19 @@ class IntroduccionController extends Controller
     {
         $contenido = Introduccion::where('seccion', $seccion)->first();
         $contenido->contenido = $request->contenido;
+
+        if ($request->hasFile("archivo")) {
+            $antiguo = $contenido->archivo;
+            \File::delete(public_path() . "/files/" . $antiguo);
+            $archivo = $request->file("archivo");
+            $extension = $archivo->getClientOriginalExtension();
+            $nombre_archivo = $contenido->id . time() . "." . $extension;
+            $contenido->archivo = $nombre_archivo;
+            $archivo->move(public_path() . "/files/", $nombre_archivo);
+        }
+
         $contenido->save();
-        return redirect()->route('introduccion.edit',$contenido->seccion)->with('bien','Actualización exitosa');
+        return redirect()->route('introduccion.edit', $contenido->seccion)->with('bien', 'Actualización exitosa');
     }
 
     public function show($seccion)

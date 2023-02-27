@@ -716,3 +716,42 @@
     .puerta3 a:hover {
         transform: scale(1.1);
     }
+
+    .main-header.navbar {
+        background-color: #021127;
+    }
+
+    .brand-link {
+        background-color: #021127;
+
+    }
+
+    .sidebar {
+        background-color: #021127;
+        border-right: solid 1px white;
+        padding-right: 2px;
+    }
+
+    .user-header.bg-dark {
+        background-color: #021127 !important;
+    }
+
+
+    footer.main-footer {
+        color: white !important;
+        background-color: #021127 !important;
+    }
+
+    .content-wrapper {
+        background-image: linear-gradient(to bottom, #021127, #112542, #213a5f, #32517d, #44689d);
+    }
+
+    .content-wrapper h1:first-child,
+    .content-wrapper h1.text-dark:first-child {
+        color: white !important;
+    }
+
+    .user-panel .info {
+        overflow-wrap: break-word!important;
+        word-wrap: break-word;
+    }

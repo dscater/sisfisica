@@ -96,7 +96,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
-                        <li class="user-header bg-blue">
+                        <li class="user-header bg-dark">
                             <img src="{{ asset('imgs/users/' . Auth::user()->foto) }}" class="img-circle elevation-2"
                                 alt="User Image">
 
@@ -134,7 +134,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar elevation-4 sidebar-blue bg-blue">
+        <aside class="main-sidebar elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('home') }}" class="brand-link" style="color:black!important;">
                 <img src="{{ asset('imgs/logo.png') }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
