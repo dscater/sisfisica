@@ -78,6 +78,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('pregunta_inicial_opcions/destroy/{pregunta_inicial_opcion}', 'PreguntaInicialOpcionController@destroy')->name('pregunta_inicial_opcions.destroy');
 
     // INTRODUCCION
+
+    Route::get('introduccion/contenido/menu_contenido', 'IntroduccionController@menu_contenido')->name('introduccion.menu_contenido');
     Route::get('introduccion/contenido/edit/{contenido}', 'IntroduccionController@edit')->name('introduccion.edit');
 
     Route::get('introduccion/contenido/show/{contenido}', 'IntroduccionController@show')->name('introduccion.show');

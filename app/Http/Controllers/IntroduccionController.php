@@ -37,4 +37,9 @@ class IntroduccionController extends Controller
         $contenido = Introduccion::where('seccion', $seccion)->first();
         return view('introduccion.show', compact('contenido', 'seccion'));
     }
+
+    public function menu_contenido()
+    {
+        return view('introduccion.menu_contenido');
+    }
 }

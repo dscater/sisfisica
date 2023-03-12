@@ -178,6 +178,14 @@ class EjercicioController extends Controller
     {
         $nivel = 1;
         $partida_guardada = null;
+        if (isset($request->nuevo)) {
+            if (Auth::user()->tipo == 'ESTUDIANTE') {
+                Auth::user()->partida()->update([
+                    "estado" => "TERMINADO"
+                ]);
+            }
+        }
+
         if (isset($request->nivel)) {
             $nivel = $request->nivel;
             $partida_guardada = Partida::where("user_id", Auth::user()->id)

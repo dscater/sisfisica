@@ -46,7 +46,7 @@
             <!-- /.row -->
             @if (Auth::user()->tipo == 'ESTUDIANTE')
             <div class="row justify-content-center contenedor_menu_est" style="background-image:url('imgs/fondomenu.jpg')!important; background-size:cover;">
-                <div class="col-md-2 puerta1"><a href="{{ route('introduccion.show','Vectores') }}"><img src="{{asset('imgs/1.png')}}" alt=""></a></div>
+                <div class="col-md-2 puerta1"><a href="{{ route('introduccion.menu_contenido') }}"><img src="{{asset('imgs/1.png')}}" alt=""></a></div>
                 <div class="col-md-2 puerta2"><a href="{{route('ejercicios.partida')}}"><img src="{{asset('imgs/2.png')}}" alt=""></a></div>
                 <div class="col-md-2 puerta3"><a href="{{route('formulas.index')}}"><img src="{{asset('imgs/3.png')}}" alt=""></a></div>
             </div>

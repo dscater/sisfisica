@@ -22,6 +22,12 @@
         </a>
         <ul class="nav nav-treeview">
             <li class="nav-item">
+                <a href="{{ route('introduccion.menu_contenido') }}" class="nav-link @if (request()->is('introduccion/contenido/menu_contenido*'))active @endif">
+                    <i class="nav-icon far fa-circle"></i>
+                    <p>Menú del contenido</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('introduccion.show','Vectores') }}" class="nav-link @if (request()->is('introduccion/contenido/show/Vectores*'))active @endif">
                     <i class="nav-icon far fa-circle"></i>
                     <p>Vectores</p>

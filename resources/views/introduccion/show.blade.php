@@ -45,6 +45,19 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    @if ($contenido->archivo)
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>PDF:</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-12">
+                                    <iframe src="{{ asset('files/' . $contenido->archivo) }}" frameborder="0" width="100%"
+                                        height="500px"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <!-- /.col -->
             </div>

@@ -2,7 +2,7 @@
     <div class="letrero">
         <img src="{{ asset('imgs/partida/mascota.png') }}" class="mascota" alt="Mascota">
         <img src="{{ asset('imgs/partida/letrero1/mensaje.png') }}" class="mensaje" alt="Mensaje">
-        <a href="{{ route('introduccion.show', 'Vectores') }}" class="apuntes">
+        <a href="{{ route('introduccion.menu_contenido') }}" class="apuntes">
             <img src="{{ asset('imgs/partida/apuntes.png') }}" alt="Apuntes">
         </a>
         <a href=""class="boton">
@@ -15,7 +15,7 @@
     <div class="letrero">
         <img src="{{ asset('imgs/partida/mascota.png') }}" class="mascota" alt="Mascota">
         <img src="{{ asset('imgs/partida/letrero2/mensaje.png') }}" class="mensaje" alt="Mensaje">
-        <a href="{{ route('introduccion.show', 'Vectores') }}" class="apuntes">
+        <a href="{{ route('introduccion.menu_contenido') }}" class="apuntes">
             <img src="{{ asset('imgs/partida/apuntes.png') }}" alt="Apuntes">
         </a>
         <a href=""class="boton">
@@ -28,10 +28,10 @@
     <div class="letrero">
         <img src="{{ asset('imgs/partida/mascota.png') }}" class="mascota" alt="Mascota">
         <img src="{{ asset('imgs/partida/letrero3/mensaje.png') }}" class="mensaje" alt="Mensaje">
-        <a href="{{ route('introduccion.show', 'Vectores') }}" class="apuntes">
+        <a href="{{ route('introduccion.menu_contenido') }}" class="apuntes">
             <img src="{{ asset('imgs/partida/apuntes.png') }}" alt="Apuntes">
         </a>
-        <a href="{{ route('ejercicios.index') }}"class="boton">
+        <a href="{{ route('home') }}"class="boton">
             <img src="{{ asset('imgs/partida/letrero3/inicio.png') }}" alt="Inicio">
         </a>
     </div>

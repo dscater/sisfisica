@@ -231,7 +231,7 @@ function nuevo() {
 
 // FUNCION PARA REINICIAR CONTEO
 function reiniciaConteo() {
-    t_mins = 2;
+    t_mins = 5;
     t_segs = 0;
 }
 
