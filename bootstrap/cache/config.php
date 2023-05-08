@@ -4,13 +4,13 @@
     'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://localhost',
+    'url' => 'http://sisfisica.test',
     'asset_url' => NULL,
     'timezone' => 'America/La_Paz',
     'locale' => 'es',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:YdtHD+x19i1MzWNb86e0WVSJGTYr85KvqgkKR2uoMzA=',
+    'key' => 'base64:d5i4J3SMxibiEW9URQAzw/uwkjQrH0VB1t/2x7AT3Gc=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -176,7 +176,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'F:\\laragon\\www\\sisfisica\\storage\\framework/cache/data',
+        'path' => 'C:\\laragon\\www\\sisfisica\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -340,13 +340,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'F:\\laragon\\www\\sisfisica\\storage\\app',
+        'root' => 'C:\\laragon\\www\\sisfisica\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'F:\\laragon\\www\\sisfisica\\storage\\app/public',
-        'url' => 'http://localhost/storage',
+        'root' => 'C:\\laragon\\www\\sisfisica\\storage\\app/public',
+        'url' => 'http://sisfisica.test/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -361,7 +361,7 @@
     ),
     'links' => 
     array (
-      'F:\\laragon\\www\\sisfisica\\public\\storage' => 'F:\\laragon\\www\\sisfisica\\storage\\app/public',
+      'C:\\laragon\\www\\sisfisica\\public\\storage' => 'C:\\laragon\\www\\sisfisica\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -395,13 +395,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'F:\\laragon\\www\\sisfisica\\storage\\logs/laravel.log',
+        'path' => 'C:\\laragon\\www\\sisfisica\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'F:\\laragon\\www\\sisfisica\\storage\\logs/laravel.log',
+        'path' => 'C:\\laragon\\www\\sisfisica\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -451,7 +451,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'F:\\laragon\\www\\sisfisica\\storage\\logs/laravel.log',
+        'path' => 'C:\\laragon\\www\\sisfisica\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -498,7 +498,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'F:\\laragon\\www\\sisfisica\\resources\\views/vendor/mail',
+        0 => 'C:\\laragon\\www\\sisfisica\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -576,7 +576,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'F:\\laragon\\www\\sisfisica\\storage\\framework/sessions',
+    'files' => 'C:\\laragon\\www\\sisfisica\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -596,9 +596,9 @@
   array (
     'paths' => 
     array (
-      0 => 'F:\\laragon\\www\\sisfisica\\resources\\views',
+      0 => 'C:\\laragon\\www\\sisfisica\\resources\\views',
     ),
-    'compiled' => 'F:\\laragon\\www\\sisfisica\\storage\\framework\\views',
+    'compiled' => 'C:\\laragon\\www\\sisfisica\\storage\\framework\\views',
     'expires' => true,
   ),
   'dompdf' => 
@@ -607,10 +607,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'F:\\laragon\\www\\sisfisica\\storage\\fonts/',
-      'font_cache' => 'F:\\laragon\\www\\sisfisica\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\victo\\AppData\\Local\\Temp',
-      'chroot' => 'F:\\laragon\\www\\sisfisica',
+      'font_dir' => 'C:\\laragon\\www\\sisfisica\\storage\\fonts/',
+      'font_cache' => 'C:\\laragon\\www\\sisfisica\\storage\\fonts/',
+      'temp_dir' => 'C:\\Users\\VICTOR\\AppData\\Local\\Temp',
+      'chroot' => 'C:\\laragon\\www\\sisfisica',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
