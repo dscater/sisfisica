@@ -77,8 +77,8 @@
                                         <tr>
                                             <td>{{ $cont++ }}</td>
                                             <td>{{ $estudiante->nombre }} {{ $estudiante->paterno }} {{ $estudiante->materno }}</td>
-                                            <td class="centreado">{{ $estudiante->user->diagnostico_inicial? $estudiante->user->diagnostico_inicial->total:'0'  }}</td>
-                                            <td class="centreado">{{ $estudiante->user->diagnostico_final? $estudiante->user->diagnostico_final->total:'0'  }}</td>
+                                            <td class="centreado">{{ $estudiante->user->diagnostico_inicial? $estudiante->user->diagnostico_inicial->puntaje:'0'  }}</td>
+                                            <td class="centreado">{{ $estudiante->user->diagnostico_final? $estudiante->user->diagnostico_final->puntaje:'0'  }}</td>
                                             <td class="centreado">{{ $estudiante->user->puntaje_extra? $estudiante->user->puntaje_extra->puntaje:'0'  }}</td>
                                         </tr>
                                     @endforeach
